@@ -1,0 +1,9 @@
+#Sun Feb 05 17:30:43 CST 2017
+eclipse.preferences.version=1
+encoding//src/main/java/com/css/framework/CodisClient.java=UTF-8
+encoding//src/main/java/com/css/framework/Context.java=UTF-8
+encoding//src/main/java/com/css/framework/ICache.java=UTF-8
+encoding//src/main/java/com/css/framework/RedisClient.java=UTF-8
+encoding//src/main/java/com/css/framework/exception/AllStorageException.java=UTF-8
+encoding//src/main/java/com/css/framework/exception/GeneralException.java=UTF-8
+encoding//src/main/java/com/css/service/ICusAccountService.java=UTF-8

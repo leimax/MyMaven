@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.css.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.css.domain.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />   
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name
+  </sql>
+  <!-- /*LOADBALANCE(TYPE=slaveprefer,delay=300)*/ -->
+  <!-- /* FORWARDBY(TABLENAME=test),  LOADBALANCE(TYPE=slaveprefer,delay=300)*/  -->
+  <!-- /* FORWARDBY(TABLENAME=test,slaver)*/  -->
+  <!--  
+    -->
+    <!-- 
+    select 
+    t.id,t.name
+    from test t ,slaver tt where t.id=tt.id 
+    and t.id = #{id,jdbcType=INTEGER} 
+    -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <![CDATA[
+    /* FORWARDBY(TABLENAME=test,slaver)*/ 
+    ]]> 
+    select 
+    t.id,t.name
+    from test t left join slaver tt on t.id=tt.id 
+    and t.id = #{id,jdbcType=INTEGER} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from test
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.css.domain.User">
+    insert into test (id, name)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.css.domain.User">
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.css.domain.User">
+    update test
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>     
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.css.domain.User">
+    update test
+    set name = #{name,jdbcType=VARCHAR} 
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
